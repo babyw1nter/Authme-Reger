@@ -1,0 +1,13 @@
+html { width: 100%; height: 100%; }
+body { /* height: 100%; */ background: url(http://r.photo.store.qq.com/psb?/V145DJPI3Pdn7U/ZTLWfhdU2DDgeTSu6zOsEcBeUOp5a1AzhZLssSZjtrg!/r/dGwBAAAAAAAA) no-repeat center 22px; }
+
+body, button, input, select, textarea,h1 ,h2, h3, h4, h5, h6, .popover { font-family: Microsoft YaHei,'STHeiti Light [STXihei]' ,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; }
+
+.reg-main { margin: auto; margin-top: 220px; margin-bottom: 100px; width: 350px; }
+.info-title { display: none; z-index: 3; position: absolute; color: #f54711; top: 7px; }
+	.tt1 { right: 10px; }
+	.tt2 { right: 104px; }
+.d_afs { padding: 4px 0; }
+	.nc_scale { height: 32px; }
+	.nc_wrapper { width: auto !important; }
+.popover { width: 270px !important; }

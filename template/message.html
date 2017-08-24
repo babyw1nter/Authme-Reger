@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+      <title>注册账号 - 我的世界菜市场小镇服务器 - 生存PRO - RPG - 粘液科技 - 增强怪物</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	  <!-- 引入 页面CSS -->
+	  <link href="../css/main.css" rel="stylesheet">  
+	  <style>
+			.h-class { text-align: center; }
+				/*
+				.ok { color: #369239; }
+				.fail { color: #da5252; }
+				*/
+			.div-msbox { height: 200px; background: #fff; border: 1px solid #ccc; border-radius: 6px; }
+			.reg-main-plus { width: 400px; text-align: center; }
+			.r-m-h { display: none; }
+	  </style>
+	  <!-- 提示页面V1.1丨创建日期: 2017-06-12丨HTML/CSS/JS: Anan丨完成日期: 2017-06-14 -->
+	</head>
+	<body>
+		<!-- 提示模块 开始 -->
+		<div id="regok" class="reg-main reg-main-plus r-m-h">
+			<div class="div-msbox">
+				<h1 class="h-class ok" style="margin-bottom: 20px; color: #5ba057;">注册成功!</h1>
+				<h5 class="h-class ok">恭喜，您的账号已注册成功！</h5>
+				<h5 class="h-class ok">您现在可以在游戏中登录了。</h5>
+				<button onclick="back()" class="btn btn-default btn-sm" style="padding: 6px 40px; margin-top: 14px;">返回</button>
+			</div>
+		</div>
+		
+		<div id="regfail" class="reg-main reg-main-plus r-m-h">
+			<div class="div-msbox">
+				<h1 class="h-class fail" style="margin-bottom: 20px; color: #da5252;">注册失败!</h1>
+				<h5 class="h-class fail">很遗憾，您的账号没有注册成功。</h5>
+				<h5 id="msg" class="h-class fail">请检查您的邀请码或昵称是否正确！</h5>
+				<button onclick="back()" class="btn btn-default btn-sm" style="padding: 6px 40px; margin-top: 14px;">返回</button>
+			</div>
+		</div>
+		<!-- 提示模块 结束 -->
+
+      <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+      <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+      <!-- 包括所有已编译的插件 -->
+      <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  <!-- 检测URL后传来的参数 -->
+	  <script>
+		// 取URL后传来的参数的函数
+	  	function GetUrlPar(name){
+			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r!=null)return  unescape(r[2]); return null;
+		}
+		
+		// 声明参数变量
+		var UrlPar;
+		
+		// 取URL后的参数存入变量
+		var WebUrl = GetUrlPar("s");
+
+		// 判断URL后是否不带参数.
+		// 因为只 GetUrlPar() 时如果不带参则会报错
+		if(WebUrl != null && WebUrl.toString().length > 1){
+			UrlPar = GetUrlPar("s"); // 存入参数变量
+			if(UrlPar == "ok"){
+				$("#regok").show();
+			} else if(UrlPar == "fail"){
+				$("#regfail").show();
+			} else if(UrlPar == "fail_ip"){
+				$("#regfail").show();
+				$("#msg").html('您的IP在短时间不能注册过多账号！');
+			} else {
+				window.location.href = "../";
+			}
+		} else {
+			window.location.href = "../"; // 空参则直接跳转默认页
+		}
+		
+		// 返回注册页
+		function back(){
+			window.location.href = "../";
+		}
+	  </script>
+	</body>
+</html>
