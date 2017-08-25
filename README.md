@@ -1,10 +1,28 @@
 ## Authme-Reger (WIP)
 
-Authme-Reger is a PHP registration system of plugin Authme, and Email Verification and Aliyun Antifraud support!
+Authme-Reger 是一个 Authme 插件的 PHP 注册系统, 支持邮箱验证码、邀请码以及阿里云滑动验证, 可有效防止注册机或者熊孩子的假人压测.
 
-WARNING: The project is still in beta, maybe have some deadly Bug. If you can read the code, Please consider improving it.
+警告: 这个工程尚处于未完工测试阶段, 也许会出现致命的漏洞. 如果您能读懂这些代码, 请考虑改善它.
 
-## Project
+## 安装方法
 
-PHP + Mysql + Bootstrap + jQuery
+根据 modules/config.inc.php 的注释来配置您的 Authme 数据表名, 加密类型等信息以及注册系统的数据库信息.  
+在您的数据库中创建您所设定的数据库表名以及相应的字段名, 然后使用 phpMyAdmin 来创建一些邀请码以供您测试使用.  
+
+## 项目特性
+
+* 使用 PHP + Mysql + Bootstrap 编写  
+* 简易的 HTML 模板支持  
+* 邮箱验证码支持  
+* 阿里云滑动验证支持  
+
+## TODO
+
+* 后台管理中心(用户, 邀请码的创建删除与管理)  
+* 与 Vault, Essentials, PlayerPoint 等插件联动, 支持充值点券(或购买用户组等联动), 创建用户个人中心.  
+* 手机号短信验证支持  
+* 更多的 Authme 密码加密算法支持  
+* 完善数据库性能  
+* 完善与后端的数据传输过程加密
+* 您的更多建议?  
 
