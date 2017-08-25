@@ -31,7 +31,8 @@ $ban_city = '常州';
 // 定义Stmp邮件服务器信息
 $smtp_server = 'smtp.exmail.qq.com';
 $smtp_port = 25;
-$smtp_username_em = 'your@email.com';
+$smtp_username_em = 'your@email.com'; // 发件地址
+$smtp_from_username = 'Admin'; // 发件人
 $smtp_username = 'your@email.com';
 $smtp_password = 'password';
 //$smtp_emtitle = '';
