@@ -243,7 +243,7 @@ function settime() {
 
 // 创建阿里云盾风控滑动验证条
 var nc = new noCaptcha();
-var nc_appkey = 'FFFF0000000001750EFC';  // 应用标识
+var nc_appkey = 'FFFF0000000000000000';  // 应用标识
 var nc_scene = 'register';  // 场景
 var nc_token = [nc_appkey, (new Date()).getTime(), Math.random()].join(':');
 var nc_option = {
