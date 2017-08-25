@@ -119,7 +119,9 @@ if (!$mysql_con){
 				
 				// 判断邀请码是否已被使用
 				if(isset($sql_key_Array[2])){
-					//$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail"; // 已被使用跳转报错页面
+					$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail"; // 已被使用跳转报错页面
+					mysqli_close($mysql_con);
+					die('邀请码已被使用.');
 				} else {
 					
 					// 修改邀请码使用者字段
