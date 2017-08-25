@@ -90,7 +90,7 @@ function object_array($array) {
 }
 
 
-// SHA256 Salt 算法
+// Authme SHA256 Salt 算法
 function SHA256Salt($Str = '', $Salt_len = 0){
 	if(!$Str || $Salt_len == 0) { return 'Error'; }
 	$RStr =  getRStr($Salt_len);  
