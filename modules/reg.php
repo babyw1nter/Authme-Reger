@@ -10,7 +10,7 @@ include 'api.php';
 	include_once 'aliyun-php-sdk-core/Config.php';
 	use Jaq\Request\V20161123 as Jaq;
 
-// 设置 date() 时区为中国 RPC 时区
+// 设置 date() 时区为中国时区
 // 解决比系统时间差 6 小时的问题.
 date_default_timezone_set('PRC');
 

@@ -4,6 +4,7 @@
 // include 'config.inc.php';
 
 // 连接数据库 & 选择数据库
+// TODO 使用 mysqli 替换过时的函数
 $mysql_con = mysql_connect($ip, $username, $password); // 连接数据库
 $mysql_sql = mysql_select_db($sqlname ,$mysql_con); // 选择数据库
 
