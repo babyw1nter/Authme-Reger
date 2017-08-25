@@ -4,9 +4,8 @@
 // include 'config.inc.php';
 
 // 连接数据库 & 选择数据库
-// TODO 使用 mysqli 替换过时的函数
-$mysql_con = mysql_connect($ip, $username, $password); // 连接数据库
-$mysql_sql = mysql_select_db($sqlname ,$mysql_con); // 选择数据库
+$mysql_con = mysqli_connect($ip, $username, $password, $sqlname); // 连接数据库
+// $mysql_sql = mysqli_select_db($mysql_con, $sqlname); // 选择数据库
 
 // 取客户端IP地址函数
 function getIP(){
@@ -91,7 +90,7 @@ function object_array($array) {
 }
 
 
-// Authme SHA256 Salt 算法
+// SHA256 Salt 算法
 function SHA256Salt($Str = '', $Salt_len = 0){
 	if(!$Str || $Salt_len == 0) { return 'Error'; }
 	$RStr =  getRStr($Salt_len);  
