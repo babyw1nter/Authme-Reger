@@ -6,8 +6,10 @@ Authme-Reger 是一个 Authme 插件的 PHP 注册系统, 支持邮箱验证码�
 
 ## 安装方法
 
-根据 modules/config.inc.php 的注释来配置您的 Authme 数据表名, 加密类型等信息以及注册系统的数据库信息.  
-在您的数据库中创建您所设定的数据库表名以及相应的字段名, 然后使用 phpMyAdmin 来创建一些邀请码以供您测试使用.  
+根据 modules/config.inc.php 的注释来配置您的 Authme 数据表名, 加密类型等信息以及数据库信息.  
+将 sql/ 下的 webreg.sql 和 webreg_fkey.sql 导入至您的数据库, 以创建数据表.
+然后使用 phpMyAdmin 来创建一些邀请码以供您测试使用(或是您习惯别的管理软件也可以).  
+
 
 ## 项目特性
 
