@@ -154,7 +154,7 @@ function check(){
 }
 
 
-// Ajax判断用户名是否存在
+// Get判断用户名是否存在
 function checkun(){
 	namecheck = false;
 	var getUn = $('#id').val();//获取文本框内容
@@ -170,7 +170,7 @@ function checkun(){
 	})
 }
 
-// Ajax判断邮箱是否存在
+// Get判断邮箱是否存在
 function checkem(){
 	emcheck = false;
 	var getEm = $('#em').val();//获取文本框内容
