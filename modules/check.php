@@ -5,7 +5,7 @@ session_start();
 
 include 'config.inc.php';
 include 'api.php';
-// require_once 'smtp.class.php'; // 遗弃旧版本的 stmp 类, 它已不再支持PHP7
+// require_once 'smtp.class.php'; // 遗弃旧版本的 SMTP 类, 它已不再支持PHP7
 require './PHPMailer/PHPMailerAutoload.php'; // 引入 PHPMailer
 
 // 禁止浏览器直接打开
