@@ -305,7 +305,7 @@ class SMTP
                 self::DEBUG_CONNECTION
             );
             set_error_handler(array($this, 'errorHandler'));
-            $this->smtp_conn = fsockopen(
+            $this->smtp_conn = pfsockopen( // 替换 fsockopen() 为 pfsockopen()
                 $host,
                 $port,
                 $errno,
