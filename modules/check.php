@@ -61,15 +61,8 @@ if($_GET['action'] == 'sendemkey'){
 	unset($_SESSION['em_key']); // 清空session
 	$_SESSION['em_key'] = mt_rand(99999,1000000); // 生成随机session
 	$send_email = $_GET['email'];
-		$em_title = "我的世界--邮箱身份验证";
-		$em_text = "您正在进行邮箱验证，请在邮箱验证输入框中输入此次验证码：<br><b><font size='5' color=red>".$_SESSION['em_key']."</font><b><br>如非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br><br><br><br><br>我的世界<br>";
-	
-	// 代码废弃
-	/*	
-	$smtp = new Smtp($smtp_server, $smtp_port, true, $smtp_username, $smtp_password); // 创建smtp对象
-	$smtp -> debug = false; // 是否显示发送的调试信息
-	$smtp -> sendmail($send_email, $smtp_username_em, $em_title, $em_text, "HTML");
-	*/
+		$em_title = $smtp_emtitle; // 邮件标题
+		$em_text = "您正在进行邮箱验证，请在邮箱验证输入框中输入此次验证码：<br><b><font size='5' color=red>".$_SESSION['em_key']."</font><b><br>如非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br><br><br><br><br>我的世界<br>"; // TODO 自定义邮件格式
 	
 	// 使用 PHPMailer 来发送邮件
 	$mail = new PHPMailer; // 创建 PHPMailer 对象
@@ -84,18 +77,11 @@ if($_GET['action'] == 'sendemkey'){
 
 	$mail->setFrom($smtp_username_em, $smtp_from_username);
 	$mail->addAddress($send_email); // 设置收件地址
-	//$mail->addAddress(''); // Name is optional
-	//$mail->addReplyTo('info@example.com', 'Information');
-	//$mail->addCC('cc@example.com'); // 设置抄送人
-	//$mail->addBCC('bcc@example.com');
 
-	//$mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments
-	//$mail->addAttachment('/tmp/image.jpg', 'new.jpg'); // Optional name
 	$mail->isHTML(true); // 设置 Email 内容是否为 HTML
 
 	$mail->Subject = $em_title; // 邮件标题
 	$mail->Body = $em_text; // 邮件内容
-	//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 	
 	$mail->send(); // 发送邮件
 	
