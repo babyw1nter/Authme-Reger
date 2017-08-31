@@ -1,6 +1,6 @@
 /* ----------------------------------------
  * Index页面控制js(需要jQuery支持)	  
- * 编写: Anan 创建日期: 2017.6.14
+ * 编写: Scoutone 创建日期: 2017.6.14
  * 06-18新增: 邮箱验证码检测
  * 06-19新增: 阿里云盾滑动验证码
  * ----------------------------------------
@@ -130,7 +130,7 @@ $("#fkey").focus(function (){
 $("#fkey").blur(function (){
 	var fkeytext = /^[A-Za-z0-9]+$/; //正则表达式
 	var fkey = $("#fkey").val(); // 取input内容
-	if (fkey.length <= 4 || !fkeytext.test(fkey)) {
+	if (fkey.length > 0 && !fkeytext.test(fkey)) {
 		if(fkey != ""){
 			keycheck = false;
 			$("#i-tt6").show();
@@ -203,7 +203,7 @@ function checkemkey(){
 	})
 }
 
-// 邮箱按钮点击事件
+// 邮箱发送验证码按钮点击事件
 var countdown = 0;  
 function sendem(){
 	if(emcheck){
