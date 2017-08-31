@@ -71,10 +71,9 @@ if (!$mysql_con){
 
 		// 判断同IP是否在一定时间内重复注册
 		$sql_text = "select * from `".$web_tablename."` where ip = '".$f_ip."' and `time` between '".$f_fastreg_time."' and '".$f_date."' limit 1;";
-		$sql_fastreg_return = mysqli_query($mysql_con, $sql_text);
-		//$sql_fastreg_Array = mysqli_fetch_row($sql_fastreg_return);			
+		$sql_fastreg_return = mysqli_query($mysql_con, $sql_text);			
 		if(is_array(mysqli_fetch_row($sql_fastreg_return))){	
-			$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail_ip";
+			$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail_ip"; // 跳转报错
 			echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";  
 			mysqli_close($mysql_con);
 			die('您的IP暂时不能注册.');
@@ -93,9 +92,7 @@ if (!$mysql_con){
 			die('密码格式错误.');
 		} elseif ($em_len <= 6 || $em_len > 30 || !preg_match("/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/", $f_email)){
 			die('邮箱格式错误.');
-		} elseif ($fkey_len <= 2 || $fkey_len > 11 || !preg_match("/^[A-Za-z0-9]+$/", $f_key)){
-			die('邀请码格式错误.');
-		} else {
+		} else {	
 
 			// 查询用户名是否存在
 			$sql_text = "select 1 from " . $authme_tablename . " where username = '" . $f_username . "' limit 1;";
@@ -112,49 +109,52 @@ if (!$mysql_con){
 			}
 			
 			// 查询邀请码是否存在
-			$sql_text = "select * from " . $web_fkey_tablename . " where fkey = '" . $f_key . "' limit 1;";
-			$sql_key_return = mysqli_query($mysql_con, $sql_text);
-			$sql_key_Array = mysqli_fetch_row($sql_key_return);
-			if(is_array($sql_key_Array)){
-				
-				// 判断邀请码是否已被使用
-				if(isset($sql_key_Array[2])){
-					$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail"; // 已被使用跳转报错页面
-					mysqli_close($mysql_con);
-					die('邀请码已被使用.');
+			if($fkey_enabled){
+				if($fkey_len <= $fkey_minlen || $fkey_len > $fkey_maxlen || !preg_match("/^[A-Za-z0-9]+$/", $f_key)){
+					$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail"; // 格式错误跳转报错
+						echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";
+						mysqli_close($mysql_con);
+						die('邀请码格式错误.');
 				} else {
-					
-					// 修改邀请码使用者字段
-					$sql_text = "update " . $web_fkey_tablename . " set `usedate` = '". $f_date ."', username = '" . $f_username . "'" . " where fkey = '" . $f_key . "';";
-					$sql_key_return = mysqli_query($mysql_con, $sql_text); if($sql_key_return == false){ die(); }
-					
-					// 密码sha256加密
-					$f_pwd_sha = SHA256Salt($f_password,16);
-					
-					// 插入记录至 web 数据表
-					$sql_text = "INSERT INTO " . $web_tablename . " (`username`, `password`, `email`, `fkey`, `ip`, `time`) VALUES ('".$f_username."', '".$f_pwd_sha."', '".$f_email."', '".$f_key."', '".$f_ip."', '".$f_date."')";
-					$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ die(); }
-					
-					// 插入记录至 authme 数据表
-					$sql_text = "INSERT INTO " . $authme_tablename . " (`id`, `username`, `password`, `ip`, `lastlogin`, `x`, `y`, `z`, `world`, `email`, `isLogged`, `realname`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', 'zhucheng', '".$f_email."', '0', '".$f_username."')";
-					$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ die(); }
-					
-					$url = $Web_Url."/template/".$Web_Url_Msg."?s=ok";
-					
+					$sql_text = "select * from " . $web_fkey_tablename . " where fkey = '" . $f_key . "' limit 1;";
+					$sql_key_return = mysqli_query($mysql_con, $sql_text);
+					$sql_key_Array = mysqli_fetch_row($sql_key_return);
+					if(is_array($sql_key_Array)){ // 邀请码是否存在
+						if(isset($sql_key_Array[2])){ // 邀请码已被使用
+							$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail"; // 已被使用跳转报错页面
+							echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";
+							mysqli_close($mysql_con);
+							die('邀请码已被使用.');
+						} else { // 修改邀请码使用者字段
+							$sql_text = "update " . $web_fkey_tablename . " set `usedate` = '". $f_date ."', username = '" . $f_username . "'" . " where fkey = '" . $f_key . "';";
+							$sql_key_return = mysqli_query($mysql_con, $sql_text); if($sql_key_return == false){ die(); }
+						}
+					}
 				}
-				
-			} else {
-				$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail";
 			}
 			
-			// 用于if跳转报错
-			//sys_error: $Web_Url."/".$Web_Url_Msg."?s=fail";
+			// 密码加密,判断算法
+			if($pw_enc == 'SHA256'){
+				$f_pwd_sha = SHA256Salt($f_password, $pw_enc_salt_len * 2);
+			} // TODO else if (){ ...
 			
-			echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";  
-			mysqli_close($mysql_con);
-			die('注册成功.');
+			// 插入记录至 web 数据表
+			$sql_text = "INSERT INTO " . $web_tablename . " (`username`, `password`, `email`, `fkey`, `ip`, `time`) VALUES ('".$f_username."', '".$f_pwd_sha."', '".$f_email."', '".$f_key."', '".$f_ip."', '".$f_date."')";
+			$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ die(); }
+			
+			// 插入记录至 authme 数据表
+			$sql_text = "INSERT INTO " . $authme_tablename . " (`id`, `username`, `password`, `ip`, `lastlogin`, `x`, `y`, `z`, `world`, `email`, `isLogged`, `realname`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', 'zhucheng', '".$f_email."', '0', '".$f_username."')";
+			$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ die(); }
+			
+			$url = $Web_Url."/template/".$Web_Url_Msg."?s=ok";				
 			
 		}
+		
+		// 程序结束跳转
+		echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";  
+		mysqli_close($mysql_con);
+		die('注册成功.');
+
 	}
 }
 
