@@ -96,10 +96,10 @@ if($_GET['action'] == 'checkemkey'){
 		if ($chk_emkey_len <= 5 || $chk_emkey_len > 6 || !preg_match("/^[0-9]*$/", $chk_emailkey)){
 			die();
 		}
-    if(!isset($_SESSION['em_key']) || $chk_emailkey == $_SESSION['em_key']){
-		echo '0'; 
-    }else{
+    if(!isset($_SESSION['em_key']) || $chk_emailkey != $_SESSION['em_key']){
 		echo '1'; 
+    }else{
+		echo '0'; 
     }
 }
 
