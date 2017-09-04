@@ -7,7 +7,7 @@ session_start();
 include 'modules/config.inc.php';
 include 'modules/api.php';
 
-// 设置 date() 时区为中国 RPC 时区
+// 设置 date() 时区为中国时区
 // 解决比系统时间差 6 小时的问题.
 date_default_timezone_set('PRC');
 
@@ -26,7 +26,7 @@ if($ban_mode == '0'){
 }
 
 // session初始化 & 设置
-$code = mt_rand(0,1000000); 
+$code = mt_rand(999999,1000000); 
 $_SESSION['code'] = $code;
 
 // 输出注册页面html模版
