@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>注册账号 - 我的世界</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<!-- 引入 Bootstrap -->
+		<!-- link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" -->
+		<!-- 引入 阿里云盾风控API -->
+		<link type="text/css" href="http://g.alicdn.com/sd/ncpc/nc.css?t=1497857702732" rel="stylesheet"/>
+		<script type="text/javascript" src="http://g.alicdn.com/sd/ncpc/nc.js?t=1497857702732"></script>
+		<!-- 引入 页面CSS -->
+		<link href="./css/main.css" rel="stylesheet">
+		<!-- 注册页面V1.3丨创建日期: 2017-06-09丨HTML/CSS/JS: Scoutone丨完成日期: 2017-09-02 -->
+	</head>
+	<body>
+		<!-- 导航部分 开始 -->
+		<div class="top-nav">
+		</div>
+		<!-- 导航部分 结束 -->
+		<!-- 注册模块 开始 -->
+		<div class="main">
+			<div class="main-tt">
+				<span style="font-size: 20px;">新用户注册</span>
+			</div>
+			<div class="reg-main">
+				<form action="./modules/reg.php" method="post" name="reg-from" class="bs-example bs-example-form" style="position: relative;" role="form" onsubmit="return check()">
+					<div class="input-group">
+						<div class="g-un">
+							<span>用户名</span>
+							<input id="id" type="text" name="username" maxlength="10" autocomplete="off" placeholder="">
+						</div>		
+						<div class="g-pw">
+							<span>密码</span>
+							<input id="pw" type="password" name="password" maxlength="16" autocomplete="off" placeholder="">
+						</div>
+						<div class="g-apw">
+							<span>确认密码</span>
+							<input id="apw" type="password" maxlength="16" autocomplete="off" placeholder="">
+						</div>
+					</div>
+					<br>
+					<br>
+					<!--div class="input-group">
+						<span class="input-group-addon">昵称</span>
+						<span id="i-tt1" class="info-title tt1">该昵称已被注册</span>
+						<input id="id" type="text" name="username" maxlength="10" class="form-control" autocomplete="off" placeholder="请输入昵称(英文+字符)，长度5-10">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon">密码</span>
+						<span id="i-tt2" class="info-title tt1">密码长度不足</span>
+						<input id="pw" type="password" name="password" maxlength="16" class="form-control" autocomplete="off" placeholder="请输入密码，长度6-16">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon">重复</span>
+						<span id="i-tt3" class="info-title tt1">密码不一致</span>
+						<input id="apw" type="password" maxlength="16" class="form-control" autocomplete="off" placeholder="请再输入一遍密码">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon">邮箱</span>
+						<span id="i-tt4" class="info-title tt1">邮箱不正确</span>
+						<input id="em" type="text" name="email" maxlength="30" class="form-control" autocomplete="off" placeholder="请输入邮箱，如: 123456@qq.com" data-container="false" data-trigger="focus" data-toggle="popover" data-placement="right" data-html="true" title="邮箱注意事项" data-content="<font color='#666'>修改密码、忘记密码等操作都需要验证邮箱，请务必填写正确的邮箱地址，否则您的账号将无法使用这些功能。</font>">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon">验证</span>
+						<span id="i-tt5" class="info-title tt2">验证码错误</span>
+						<input id="emkey" type="text" name="emailkey" maxlength="6" class="form-control" autocomplete="off" placeholder="请输入邮箱验证码">
+						<span class="input-group-btn">
+							<button id='sdem' class="btn btn-default" type="button" onclick="sendem()">发送验证码</button>
+						</span>
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon">邀请码</span>
+						<span id="i-tt6" class="info-title tt1">邀请码格式错误</span>
+						<input id="fkey" type="text" name="fkey" maxlength="11" class="form-control" autocomplete="off" placeholder="请输入11位邀请码" data-container="false" data-trigger="focus" data-toggle="popover" data-placement="right" data-html="true" title="如何获得邀请码？" data-content="<font color='#666'>为防止假人压测，本服目前只接受邀请注册。邀请码可向在服玩家索取或是不定期发放，感谢您的支持！</font>">
+					</div-->
+					<br>
+					<!--div id="_umfp" style="display:inline;width:0px;height:0px;overflow:hidden" style="display: none;"></div-->
+					<div class="d_afs">
+						<div id="afs"></div>
+					</div>
+					<br>
+					<input type="hidden" name="session_code" value="<?php echo $code;?>">
+					<input type="hidden" id="csessionid" name="csessionid">
+					<input type="hidden" id="sig" name="sig">
+					<input type="hidden" id="token" name="token">
+					<input type="hidden" id="scene" name="scene">
+					<!--div style="width: 210px;" class="input-group">
+						<span class="input-group-addon">验证码</span>
+						<input type="text" class="form-control" placeholder="">
+					</div-->
+					<div style="width: 100%;">
+						<button id="rbtn" type="submit" name="submit" onclick="btnclick()" style="padding: 10px 138px;" class="btn btn-info btn-lg">立即注册</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+		<!-- 注册模块 结束 -->
+		<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+		<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<!-- 包括所有已编译的插件 -->
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- 引入页面控制js -->
+		<script src="./js/main.js" charset="utf-8"></script>
+	</body>
+</html>
