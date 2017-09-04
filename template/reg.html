@@ -1,89 +1,125 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>注册账号 - 我的世界</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="renderer" content="webkit">
-		<!-- 引入 Bootstrap -->
-		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<!-- 引入 阿里云盾风控API -->
-		<link type="text/css" href="http://g.alicdn.com/sd/ncpc/nc.css?t=1497857702732" rel="stylesheet"/>
-		<script type="text/javascript" src="http://g.alicdn.com/sd/ncpc/nc.js?t=1497857702732"></script>
-		<!-- 引入 页面CSS -->
-		<link href="./css/main.css" rel="stylesheet">
-		<!-- 注册页面V1.2丨创建日期: 2017-06-09丨HTML/CSS/JS: Anan丨完成日期: 2017-06-19 -->
-	</head>
-	<body>
-
-		<!-- 注册模块 开始 -->
-		<div class="reg-main">
-			<form action="./modules/reg.php" method="post" name="reg-from" class="bs-example bs-example-form" style="position: relative;" role="form" onsubmit="return check()">
-				<div class="input-group">
-					<span class="input-group-addon">昵称</span>
-					<span id="i-tt1" class="info-title tt1">该昵称已被注册</span>
-					<input id="id" type="text" name="username" maxlength="10" class="form-control" autocomplete="off" placeholder="请输入昵称(英文+字符)，长度5-10">
-				</div>
-				<br>
-				<div class="input-group">
-					<span class="input-group-addon">密码</span>
-					<span id="i-tt2" class="info-title tt1">密码长度不足</span>
-					<input id="pw" type="password" name="password" maxlength="16" class="form-control" autocomplete="off" placeholder="请输入密码，长度6-16">
-				</div>
-				<br>
-				<div class="input-group">
-					<span class="input-group-addon">重复</span>
-					<span id="i-tt3" class="info-title tt1">密码不一致</span>
-					<input id="apw" type="password" maxlength="16" class="form-control" autocomplete="off" placeholder="请再输入一遍密码">
-				</div>
-				<br>
-				<div class="input-group">
-					<span class="input-group-addon">邮箱</span>
-					<span id="i-tt4" class="info-title tt1">邮箱不正确</span>
-					<input id="em" type="text" name="email" maxlength="30" class="form-control" autocomplete="off" placeholder="请输入邮箱，如: 123456@qq.com" data-container="false" data-trigger="focus" data-toggle="popover" data-placement="right" data-html="true" title="邮箱注意事项" data-content="<font color='#666'>修改密码、忘记密码等操作都需要验证邮箱，请务必填写正确的邮箱地址，否则您的账号将无法使用这些功能。</font>">
-				</div>
-				<br>
-				<div class="input-group">
-					<span class="input-group-addon">验证</span>
-					<span id="i-tt5" class="info-title tt2">验证码错误</span>
-					<input id="emkey" type="text" name="emailkey" maxlength="6" class="form-control" autocomplete="off" placeholder="请输入邮箱验证码">
-					<span class="input-group-btn">
-						<button id='sdem' class="btn btn-default" type="button" onclick="sendem()">发送验证码</button>
-					</span>
-				</div>
-				<br>
-				<div class="input-group">
-					<span class="input-group-addon">邀请码</span>
-					<span id="i-tt6" class="info-title tt1">邀请码格式错误</span>
-					<input id="fkey" type="text" name="fkey" maxlength="11" class="form-control" autocomplete="off" placeholder="请输入11位邀请码" data-container="false" data-trigger="focus" data-toggle="popover" data-placement="right" data-html="true" title="如何获得邀请码？" data-content="<font color='#666'>为防止假人压测，本服目前只接受邀请注册。邀请码可向在服玩家索取或是不定期发放，感谢您的支持！</font>">
-				</div>
-				<br>
-				<!--div id="_umfp" style="display:inline;width:0px;height:0px;overflow:hidden" style="display: none;"></div-->
-				<div class="d_afs">
-					<div id="afs"></div>
-				</div>
-				<br>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="zh-cmn-Hans">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="MCBBS是中国最大的同性交友网站，立即注册享受FAの快感！">
+<meta name="keywords" content="Minecraft,沙盒,MC">
+<meta name="author" content="Anan-X Studio">
+<title>我的世界 - 用户注册</title>
+<!-- 设计: sc0utzz | 重构: Moumou | 创建: 2017-06-09 | 修改: 2017-09-05 | 个人主页: https://github.com/sc0utz -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="css/normalize.css" />
+<!-- 引入阿里云盾风控API -->
+<link type="text/css" href="http://g.alicdn.com/sd/ncpc/nc.css?t=1497857702732" rel="stylesheet"/>
+<script type="text/javascript" src="http://g.alicdn.com/sd/ncpc/nc.js?t=1497857702732"></script>
+<!-- 引入页面CSS -->
+<link rel="stylesheet" href="css/main.css">
+<!-- 检测浏览器信息 -->
+<script type="text/javascript" src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js?v.2017-08-17"></script>
+<!-- 兼容IE9 -->
+<!--[if lt IE 9]> 
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]--> 
+</head>
+<body>
+	<div class="top-nav">
+		<div class="top-nav-center">
+			<a href="#" style="float: left;"><img src="img/logo.png" class="img-logo" /></a>
+			<ul>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">会员服务</a></li>
+				<li><a href="#">个人中心</a></li>
+				<li><a href="#">玩家论坛</a></li>
+				<li><a href="#">玩法帮助</a></li>
+				<li><a href="#">排行榜</a></li>
+			</ul>
+			<div class="top-nav-user">
+				<img src="img/noLogin.jpg" />
+				<span>欢迎您，您可以<a href="#">登录</a>或<a href="#">注册</a></span>
+			</div>
+		</div>
+	</div>
+	<!--	reg box	-->
+	<div class="reg-box">
+		<h3 class="is-title">新用户注册</h3>
+		<div class="adbox-right"><img src="img/ad1.jpg" /></div>
+		<div class="row">
+			<form method="post" name="reg-from" action="./modules/reg.php" onsubmit="return check()">
+				<ul class="is-reg-box clearfix">
+					<li class="li-row clearfix">
+							<label class="is-label" for="username">用户名</label>
+							<input id="id" name="username" type="text" maxlength="10" autocomplete="new-password" />
+							<i class="ion ion-android-person"></i>
+							<div id="i-tt1" class="i-tt"></div>
+					</li>
+					<li class="li-row clearfix">
+							<label class="is-label" for="email">邮箱</label>
+							<input id="em" name="email" type="text" maxlength="30" autocomplete="new-password" />
+							<i class="ion ion-ios-email"></i>
+							<div id="i-tt2" class="i-tt"></div>
+					</li>
+					<li class="li-row clearfix">
+							<label class="is-label" for="emailkey">邮箱验证码</label>
+							<input id="emkey" name="emailkey" type="text" maxlength="6" autocomplete="new-password" />
+							<button id="sdem" class="post-form btn-sdem" type="button" onclick="sendem()">获取验证码</button>
+							<div id="i-tt3" class="i-tt" style="left: 180px;"></div>
+					</li>
+					<li class="li-row clearfix">
+							<label class="is-label" for="password">密码</label>
+							<input id="pw" name="password" type="password" maxlength="16" autocomplete="new-password" />
+							<i class="ion ion-android-lock"></i>
+							<div id="i-tt4" class="i-tt"></div>
+					</li>
+					<li class="li-row clearfix">
+							<label class="is-label" for="acceptpassword">确认密码</label>
+							<input id="apw" name="acceptpassword" type="password" maxlength="16" autocomplete="new-password" />
+							<i class="ion ion-android-lock"></i>
+							<div id="i-tt5" class="i-tt"></div>
+					</li>
+					<li class="li-row clearfix">
+							<label class="is-label">滑动验证</label>
+							<div class="d_afs">
+								<div id="afs"></div>
+							</div>
+							<div id="i-tt6" class="i-tt"></div>
+					</li>
+					
+					<!-- 注册按钮 -->
+					<li class="li-row">
+						<p class="protocol clearfix">
+							<input class="check" id="check_box" name="check_box" type="checkbox" checked="checked" onclick="ckboxOnClick()" required />
+							<span>我已阅读并同意</span><a href="#"><em>《同性交友网服务条款》</em></a>
+						</p>
+						<div id="i-tt7" class="i-tt"></div>
+						<button id="rbtn" class="post-form" name="submit" type="submit" onclick="btnclick()">立即注册</button>
+					</li>
+				</ul>
+				<!-- 表单隐藏域 -->
 				<input type="hidden" name="session_code" value="<?php echo $code;?>">
 				<input type="hidden" id="csessionid" name="csessionid">
 				<input type="hidden" id="sig" name="sig">
 				<input type="hidden" id="token" name="token">
 				<input type="hidden" id="scene" name="scene">
-				<!--div style="width: 210px;" class="input-group">
-					<span class="input-group-addon">验证码</span>
-					<input type="text" class="form-control" placeholder="">
-				</div-->
-				<div style="width: 100%;">
-					<button id="rbtn" type="submit" name="submit" onclick="btnclick()" style="padding: 10px 138px;" class="btn btn-info btn-lg">立即注册</button>
-				</div>
 			</form>
 		</div>
-		<!-- 注册模块 结束 -->
-			
-		<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-		<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-		<!-- 包括所有已编译的插件 -->
-		<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<!-- 引入页面控制js -->
-		<script src="./js/main.js" charset="utf-8"></script>
-	</body>
+	</div>
+	<!--	//reg box	-->
+	<div class="footer">
+		<p>© 2017 Anan-X Studio. All Right Reserved. Themes by Moumou</p>
+		<p>桂ICP备15007582-1</p>
+	</div>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<!-- 引入页面控制JS -->
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
 </html>
