@@ -26,7 +26,7 @@ if($ban_mode == '0'){
 }
 
 // session初始化 & 设置
-$code = mt_rand(999999,1000000); 
+$code = mt_rand(99999,1000000); 
 $_SESSION['code'] = $code;
 
 // 输出注册页面html模版
