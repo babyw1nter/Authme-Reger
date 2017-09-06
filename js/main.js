@@ -4,11 +4,13 @@
  * 06-18新增: 邮箱验证码检测
  * 06-19新增: 阿里云盾滑动验证码
  * 09-03修改: 重写部分function
+ * 09-06修复: 邮箱验证码部分BUG
  * ----------------------------------------
 */
 
 var namecheck = false, pwcheck = false, apwcheck = false, emcheck = false, emkeycheck = false, keycheck = true, afs_ = false;
 var isCD = false;
+var email_ = null;
 
 // 设置焦点
 $("#id").focus();
@@ -67,7 +69,13 @@ $("#em").blur(function (){
 		$("#i-tt2").show();
 	} else {
 		$("#em").css("color","#666");
-		checkem(); // Get提交检测
+		if(email_ != null && email_ != $('#em').val()){
+			$("#i-tt3").html("<span><i class='ion-span ion-android-alert'></i>验证码错误！</span>");
+			$("#i-tt3").show();
+			emkeycheck = false;
+		} else {
+			checkem(); // Get提交检测
+		}
 	}
 	$("#i-tt2").show();
 });
@@ -93,6 +101,49 @@ $("#emkey").blur(function (){
 		checkemkey(); // Get提交检测
 	}
 });
+
+// 邮箱发送验证码按钮点击事件
+var countdown = 0;  
+function sendem(){
+	if(emcheck){
+		$("#sdem").addClass('btn-disabled');
+		$("#sdem").attr("disabled", true);
+		countdown = 60;
+		settime();
+		var getUrl = "./modules/check.php?action=sendemkey&email=" + $('#em').val();
+		$.get(getUrl,function(str){ console.log(str); });
+		$('#emkey').val("");
+		$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i>验证码已发送至邮箱</span>");
+		$("#i-tt3").show();
+		email_ = $("#em").val(); // 记录邮箱
+		emkeycheck = false;
+	} 
+}
+
+function settime() {  
+    if(countdown == 0) {  
+        $("#sdem").html('获取验证码');
+		$("#sdem").removeClass('btn-disabled');
+		$("#sdem").attr("disabled", false);
+		clearTimeout(tmt); 
+		isCD = false;
+		return;
+    } else {    
+        $("#sdem").html("重新发送(" + countdown + ")");
+		$("#sdem").addClass('btn-disabled');
+		$("#sdem").attr("disabled", true);
+		isCD = true;
+        countdown--;  
+    }  
+		/*
+		if(countdown < 9){
+			$('#i-tt5').css('right','110px');
+		} else {
+			$('#i-tt5').css('right','116px');
+		}
+		*/
+    var tmt = setTimeout(settime, 1000);
+}
 
 // 检测密码
 $("#pw").focus(function (){
@@ -144,6 +195,7 @@ $("#apw").blur(function (){
 
 
 // 检测邀请码
+/*
 $("#fkey").focus(function (){
 	$("#fkey").css("color","#666");
 	$("#i-tt6").hide();
@@ -165,6 +217,7 @@ $("#fkey").blur(function (){
 	}
 	$('#fkey').popover('hide');
 });
+*/
 
 
 // 判断表单可否提交
@@ -222,7 +275,7 @@ function checkemkey(){
 	var getUrl = "./modules/check.php?action=checkemkey&key=" + getEmkey; 
 	$.get(getUrl,function(str){ 
 		//console.log(str);
-		if(str == '1'){
+		if(str == '1' || email_ != $('#em').val()){
 			$("#i-tt3").html("<span><i class='ion-span ion-android-alert'></i>验证码错误！</span>");
 		} else {
 			$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
@@ -231,48 +284,6 @@ function checkemkey(){
 		$('#i-tt3').show();
 	})
 }
-
-// 邮箱发送验证码按钮点击事件
-var countdown = 0;  
-function sendem(){
-	if(emcheck){
-		$("#sdem").addClass('btn-disabled');
-		$("#sdem").attr("disabled", true);
-		countdown = 60;
-		settime();
-		var getUrl = "./modules/check.php?action=sendemkey&email=" + $('#em').val();
-		$.get(getUrl,function(str){ console.log(str); });
-		$('#emkey').val("");
-		$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i>验证码已发送至邮箱</span>");
-		$("#i-tt3").show();
-		emkeycheck = false;
-	} 
-}
-
-function settime() {  
-    if(countdown == 0) {  
-        $("#sdem").html('获取验证码');
-		$("#sdem").removeClass('btn-disabled');
-		$("#sdem").attr("disabled", false);
-		clearTimeout(tmt); 
-		isCD = false;
-		return;
-    } else {    
-        $("#sdem").html("重新发送(" + countdown + ")");
-		$("#sdem").addClass('btn-disabled');
-		$("#sdem").attr("disabled", true);
-		isCD = true;
-        countdown--;  
-    }  
-		/*
-		if(countdown < 9){
-			$('#i-tt5').css('right','110px');
-		} else {
-			$('#i-tt5').css('right','116px');
-		}
-		*/
-    var tmt = setTimeout(settime, 1000);
-}  
 
 // 创建阿里云盾风控滑动验证条
 var nc = new noCaptcha();
