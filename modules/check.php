@@ -58,11 +58,12 @@ if($_GET['action'] == 'checkem'){
 
 // Smtp发送邮件
 if($_GET['action'] == 'sendemkey'){
-	unset($_SESSION['em_key']); // 清空session
-	$_SESSION['em_key'] = mt_rand(99999,1000000); // 生成随机session
 	$send_email = $_GET['email'];
+	unset($_SESSION[$send_email]['em_key']); // 清空session
+	//$_SESSION['email'] = $send_email; // 设置session邮箱号
+	$_SESSION[$send_email]['em_key'] = mt_rand(99999,1000000); // 生成随机session
 		$em_title = $smtp_emtitle; // 邮件标题
-		$em_text = "您正在进行邮箱验证，请在邮箱验证输入框中输入此次验证码：<br><b><font size='5' color=red>".$_SESSION['em_key']."</font><b><br>如非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br><br><br><br><br>我的世界<br>"; // TODO 自定义邮件格式
+		$em_text = "您正在进行邮箱验证，请在邮箱验证输入框中输入此次验证码：<br><b><font size='5' color=red>".$_SESSION[$send_email]['em_key']."</font><b><br>如非本人操作，请忽略此邮件，由此给您带来的不便请谅解！<br><br><br><br><br>我的世界<br>"; // TODO 自定义邮件格式
 	
 	// 使用 PHPMailer 来发送邮件
 	$mail = new PHPMailer; // 创建 PHPMailer 对象
@@ -90,16 +91,17 @@ if($_GET['action'] == 'sendemkey'){
 // 判断邮箱验证码是否和session一致
 if($_GET['action'] == 'checkemkey'){
 	//usleep(5500); // 作用同上
+	$chk_email = $_GET['email'];
 	$chk_emailkey = $_GET['key'];
 	$chk_emkey_len = strlen($chk_emailkey);
 		// 作用同上, 单纯判断数字而已
 		if ($chk_emkey_len <= 5 || $chk_emkey_len > 6 || !preg_match("/^[0-9]*$/", $chk_emailkey)){
 			die();
 		}
-    if(!isset($_SESSION['em_key']) || $chk_emailkey != $_SESSION['em_key']){
-		echo '1'; 
-    }else{
+    if(!isset($_SESSION[$chk_email]['em_key']) || $chk_emailkey != $_SESSION[$chk_email]['em_key']){
 		echo '0'; 
+    }else{
+		echo '1'; 
     }
 }
 
