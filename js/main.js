@@ -135,13 +135,6 @@ function settime() {
 		isCD = true;
         countdown--;  
     }  
-		/*
-		if(countdown < 9){
-			$('#i-tt5').css('right','110px');
-		} else {
-			$('#i-tt5').css('right','116px');
-		}
-		*/
     var tmt = setTimeout(settime, 1000);
 }
 
@@ -271,15 +264,16 @@ function checkem(){
 // Get判断邮箱验证码是否正确
 function checkemkey(){
 	emkeycheck = false;
-	var getEmkey = $('#emkey').val();//获取文本框内容
-	var getUrl = "./modules/check.php?action=checkemkey&key=" + getEmkey; 
+	var getEm = $('#em').val();
+	var getEmkey = $('#emkey').val();
+	var getUrl = "./modules/check.php?action=checkemkey&email=" + getEm + "&key=" + getEmkey; // 现在邮箱也一并提交供后端判断
 	$.get(getUrl,function(str){ 
 		//console.log(str);
-		if(str == '1' || email_ != $('#em').val()){
-			$("#i-tt3").html("<span><i class='ion-span ion-android-alert'></i>验证码错误！</span>");
-		} else {
+		if(str == '1' && email_ == $('#em').val()){
 			$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 			emkeycheck = true;
+		} else {
+			$("#i-tt3").html("<span><i class='ion-span ion-android-alert'></i>验证码错误！</span>");
 		}
 		$('#i-tt3').show();
 	})
