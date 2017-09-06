@@ -5,7 +5,6 @@ session_start();
 
 include 'config.inc.php';
 include 'api.php';
-// require_once 'smtp.class.php'; // 遗弃旧版本的 SMTP 类, 它已不再支持PHP7
 require './PHPMailer/PHPMailerAutoload.php'; // 引入 PHPMailer
 
 // 禁止浏览器直接打开
@@ -17,7 +16,7 @@ header("Location:".$fromurl); exit;
 
 // 判断数据库是否已连接
 if (!$mysql_con){
-	die('<b>Error</b>: ' . mysqli_error()); // 连接失败输出错误信息
+	die('<b>Error</b>: ' . mysqli_error($mysql_con)); // 连接失败输出错误信息
 }
 
 // 判断用户名是否可用
@@ -29,7 +28,7 @@ if($_GET['action'] == 'checkid'){
 		if ($chk_un_len <= 4 || $chk_un_len > 10 || !preg_match("/^[a-zA-Z][a-zA-Z0-9_]*$/", $chk_username)){
 			die();
 		}
-	$sql_text = "select 1 from " . $authme_tablename . " where username = '" . $chk_username . "' limit 1;";
+	$sql_text = "select 1 from " . $authme_tablename . " where ".$mySQLColumnName." = '" . $chk_username . "' limit 1;";
 	$sql_return = mysqli_query($mysql_con, $sql_text);
     if(is_array(mysqli_fetch_row($sql_return))){
 		echo '1'; 
@@ -47,7 +46,7 @@ if($_GET['action'] == 'checkem'){
 		if ($chk_em_len <= 6 || $chk_em_len > 30 || !preg_match("/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/", $chk_email)){
 			die();
 		}
-	$sql_text = "select 1 from " . $authme_tablename . " where email = '" . $chk_email . "' limit 1;";
+	$sql_text = "select 1 from " . $authme_tablename . " where ".$mySQLColumnEmail." = '" . $chk_email . "' limit 1;";
 	$sql_return = mysqli_query($mysql_con, $sql_text);
     if(is_array(mysqli_fetch_row($sql_return))){
 		echo '1'; 
