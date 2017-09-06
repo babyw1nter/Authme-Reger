@@ -72,7 +72,7 @@ if($_GET['action'] == 'sendemkey'){
 	$mail->SMTPAuth = true; // 开启 SMTP 身份验证
 	$mail->Username = $smtp_username; // SMTP 用户名
 	$mail->Password = $smtp_password; // SMTP 密码
-	//$mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+	//$mail->SMTPSecure = 'tls'; // 开启 TLS 加密, `ssl` also accepted
 	$mail->Port = $smtp_port; // TCP端口
 
 	$mail->setFrom($smtp_username_em, $smtp_from_username);
