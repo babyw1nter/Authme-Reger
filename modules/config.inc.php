@@ -13,9 +13,31 @@ $password = '';
 $sqlname = 'mcserver';
 
 // 定义数据库表名
-$authme_tablename = 'authme';
-$web_tablename = 'webreg';
-$web_fkey_tablename = 'webreg_fkey';
+$authme_tablename = 'authme'; // Authme表
+$web_tablename = 'webreg'; // 网页表
+$web_fkey_tablename = 'webreg_fkey'; // 邀请码表
+
+// 定义Authme表字段名
+$mySQLColumnId = 'id';
+$mySQLColumnName = 'username';
+$mySQLRealName = 'realname';
+$mySQLColumnPassword = 'password';
+$mySQLColumnEmail = 'email';
+$mySQLColumnLogged = 'isLogged';
+$mySQLColumnIp = 'ip';
+$mySQLColumnLastLogin = 'lastlogin';
+$mySQLlastlocX = 'x';
+$mySQLlastlocY = 'y';
+$mySQLlastlocZ = 'z';
+$mySQLlastlocWorld = 'world';
+$mySQLlastlocYaw = 'yaw';
+$mySQLlastlocPitch = 'pitch';
+
+// TODO 定义网页表字段名
+//$sql_
+
+// TODO 定义邀请码表字段名
+//$sql_
 
 // 定义注册设置
 // TODO $ban_id = '*admin*,*fuck*,*op*'; // 注册保留关键字

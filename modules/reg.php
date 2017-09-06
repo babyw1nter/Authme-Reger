@@ -63,10 +63,10 @@ if (!$mysql_con){
 		}
 		
 		// 判断邮箱验证码
- 		if(!isset($f_emkey) || $f_emkey != $_SESSION['em_key']){
+ 		if(!isset($f_emkey) || $f_emkey != $_SESSION[$f_email]['em_key']){
 			die('邮箱验证码错误.');
 		} else {
-			unset($_SESSION['em_key']);
+			unset($_SESSION[$f_email]['em_key']);
 		} 
 
 		// 判断同IP是否在一定时间内重复注册
@@ -95,14 +95,14 @@ if (!$mysql_con){
 		} else {	
 
 			// 查询用户名是否存在
-			$sql_text = "select 1 from " . $authme_tablename . " where username = '" . $f_username . "' limit 1;";
+			$sql_text = "select 1 from " . $authme_tablename . " where ".$mySQLColumnName." = '" . $f_username . "' limit 1;";
 			$sql_return = mysqli_query($mysql_con, $sql_text);
 			if(is_array(mysqli_fetch_row($sql_return))){
 				die('用户名已存在.'); 			 
 			}
 			
 			// 查询邮箱是否存在
-			$sql_text = "select 1 from " . $authme_tablename . " where email = '" . $f_email . "' limit 1;";
+			$sql_text = "select 1 from " . $authme_tablename . " where ".$mySQLColumnEmail." = '" . $f_email . "' limit 1;";
 			$sql_return = mysqli_query($mysql_con, $sql_text);
 			if(is_array(mysqli_fetch_row($sql_return))){
 				die('邮箱已存在.'); 
@@ -143,7 +143,7 @@ if (!$mysql_con){
 			$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ die(); }
 			
 			// 插入记录至 authme 数据表
-			$sql_text = "INSERT INTO " . $authme_tablename . " (`id`, `username`, `password`, `ip`, `lastlogin`, `x`, `y`, `z`, `world`, `email`, `isLogged`, `realname`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', 'zhucheng', '".$f_email."', '0', '".$f_username."')";
+			$sql_text = "INSERT INTO " . $authme_tablename . " (`".$mySQLColumnId."`, `".$mySQLColumnName."`, `".$mySQLColumnPassword."`, `".$mySQLColumnIp."`, `".$mySQLColumnLastLogin."`, `".$mySQLlastlocX."`, `".$mySQLlastlocY."`, `".$mySQLlastlocZ."`, `".$mySQLlastlocWorld."`, `".$mySQLColumnEmail."`, `".$mySQLColumnLogged."`, `".$mySQLRealName."`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', NULL, '".$f_email."', '0', '".$f_username."')";
 			$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ die(); }
 			
 			$url = $Web_Url."/template/".$Web_Url_Msg."?s=ok";				
