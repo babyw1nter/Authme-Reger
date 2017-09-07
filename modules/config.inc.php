@@ -33,6 +33,10 @@ $mySQLlastlocWorld = 'world';
 $mySQLlastlocYaw = 'yaw';
 $mySQLlastlocPitch = 'pitch';
 
+// 定义Authme密码加密算法
+$pw_enc = 'SHA256'; // 现在改成大写了
+$pw_enc_salt_len = 8;
+
 // TODO 定义网页表字段名
 //$sql_
 
@@ -63,12 +67,15 @@ $Access_Key_ID = '';
 $Access_Key_Secret = '';
 
 // 定义邀请码设置
-$fkey_enabled = false; // true 开启 false 关闭
+$fkey_enabled = true; // true 开启 false 关闭
 $fkey_minlen = 4;
 $fkey_maxlen = 11;
 
-// 定义authme密码加密算法
-$pw_enc = 'SHA256'; // 现在改成大写了
-$pw_enc_salt_len = 8;
+// 定义用户服务条款
+$contract_name = '《同性交友网服务条款》';
+$contract_url = '#';
+
+// 定义底部版权信息
+// TODO ...
 
 ?>
