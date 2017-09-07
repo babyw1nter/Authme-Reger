@@ -13,7 +13,7 @@ Authme-Reger 是一个 Authme 插件的 PHP 注册系统, 支持邮箱验证码�
 
 ## 项目特性
 
-* 使用 PHP + Mysql + Bootstrap 编写  
+* 使用 PHP + Mysql 编写  
 * 简易的 HTML 模板支持  
 * 邮箱验证码支持  
 * 阿里云滑动验证支持  
