@@ -67,7 +67,7 @@ $Access_Key_ID = '';
 $Access_Key_Secret = '';
 
 // 定义邀请码设置
-$fkey_enabled = true; // true 开启 false 关闭
+$fkey_enabled = false; // true 开启 false 关闭
 $fkey_minlen = 4;
 $fkey_maxlen = 11;
 
