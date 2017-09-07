@@ -8,9 +8,16 @@
  * ----------------------------------------
 */
 
-var namecheck = false, pwcheck = false, apwcheck = false, emcheck = false, emkeycheck = false, keycheck = true, afs_ = false;
+var namecheck = false, pwcheck = false, apwcheck = false, emcheck = false, emkeycheck = false, keycheck = false, afs_ = false;
 var isCD = false;
 var email_ = null;
+
+// 判断是否开启邀请码
+if($("#fkey-li").css("display") == "none"){
+	keycheck = true;
+} else {
+	keycheck = false;
+}
 
 // 设置焦点
 $("#id").focus();
@@ -36,7 +43,6 @@ $("#id").blur(function (){
 		namecheck = false;
 	} else {
 		$("#id").css("color","#666");
-		//$("#i-tt1").hide();
 		checkun(); // Get提交检测用户名是否存在
 	}
 	$("#i-tt1").show();
@@ -66,7 +72,6 @@ $("#em").blur(function (){
 			$("#i-tt2").html("<span><i class='ion-span ion-android-alert'></i>请输入邮箱</span>");
 		}
 		emcheck = false;
-		$("#i-tt2").show();
 	} else {
 		$("#em").css("color","#666");
 		if(email_ != null && email_ != $('#em').val()){
@@ -113,6 +118,7 @@ function sendem(){
 		var getUrl = "./modules/check.php?action=sendemkey&email=" + $('#em').val();
 		$.get(getUrl,function(str){ console.log(str); });
 		$('#emkey').val("");
+		$("#emkey").focus();
 		$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i>验证码已发送至邮箱</span>");
 		$("#i-tt3").show();
 		email_ = $("#em").val(); // 记录邮箱
@@ -145,7 +151,8 @@ $("#pw").focus(function (){
 });
 
 $("#pw").blur(function (){
-	var pwtext = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+	//var pwtext = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+	var pwtext = /^[\x21-\x7E]*.{5,15}$/;
 	var pw = $("#pw").val();
 	if (pw.length <= 5 || !pwtext.test(pw)) {
 		$("#i-tt4").html("<span><i class='ion-span ion-android-alert'></i>请输入6-16个（英文，数字，符号）</span>");
@@ -153,7 +160,6 @@ $("#pw").blur(function (){
 			$("#i-tt4").html("<span><i class='ion-span ion-android-alert'></i>请输入密码</span>");
 		}
 		pwcheck = false;
-		$("#i-tt4").show();
 	} else {
 		$("#i-tt4").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 		pwcheck = true;
@@ -177,7 +183,6 @@ $("#apw").blur(function (){
 			$("#i-tt5").html("<span><i class='ion-span ion-android-alert'></i>请输入确认密码</span>");
 		}
 		apwcheck = false;
-		$("#i-tt5").show();
 	} else {
 		$("#i-tt5").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 		apwcheck = true;
@@ -188,29 +193,28 @@ $("#apw").blur(function (){
 
 
 // 检测邀请码
-/*
 $("#fkey").focus(function (){
 	$("#fkey").css("color","#666");
-	$("#i-tt6").hide();
-	$('#fkey').popover('show');
+	$("#i-tt5plus").hide();
 });
 
 $("#fkey").blur(function (){
 	var fkeytext = /^[A-Za-z0-9]+$/; //正则表达式
 	var fkey = $("#fkey").val(); // 取input内容
-	if (fkey.length > 0 && !fkeytext.test(fkey)) {
-		if(fkey != ""){
-			keycheck = false;
-			$("#i-tt6").show();
+	if (fkey.length < 4 || !fkeytext.test(fkey)) {
+		if(fkey.length == 0){
+			$("#i-tt5plus").html("<span><i class='ion-span ion-android-alert'></i>请输入邀请码</span>");
+		} else {
+			$("#i-tt5plus").html("<span><i class='ion-span ion-android-alert'></i>请输入4-11位邀请码（英文，数字）</span>");			
 		}
+		keycheck = false;
 	} else {
+		$("#i-tt5plus").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 		keycheck = true;
-		$("#fkey").css("color","#666");
-		$("#i-tt6").hide();
 	}
-	$('#fkey').popover('hide');
+	$("#i-tt5plus").show();
+
 });
-*/
 
 
 // 判断表单可否提交

@@ -88,6 +88,12 @@
 							<i class="ion ion-android-lock"></i>
 							<div id="i-tt5" class="i-tt"></div>
 					</li>
+					<li id="fkey-li" class="li-row clearfix" <?php echo $fkey_class;?>>
+							<label class="is-label" for="acceptpassword">邀请码</label>
+							<input id="fkey" name="fkey" type="text" maxlength="11" autocomplete="new-password" />
+							<i class="ion ion-android-pin"></i>
+							<div id="i-tt5plus" class="i-tt"></div>
+					</li>
 					<li class="li-row clearfix">
 							<label class="is-label">滑动验证</label>
 							<div class="d_afs">
@@ -99,7 +105,7 @@
 					<li class="li-row">
 						<p class="protocol clearfix">
 							<input class="check" id="check_box" name="check_box" type="checkbox" checked="checked" onclick="ckboxOnClick()" required />
-							<span>我已阅读并同意</span><a href="#"><em>《同性交友网服务条款》</em></a>
+							<span>我已阅读并同意</span><a href="<?php echo $contract_url;?>"><em><?php echo $contract_name;?></em></a>
 						</p>
 						<div id="i-tt7" class="i-tt"></div>
 						<button id="rbtn" class="post-form" name="submit" type="submit" onclick="btnclick()">立即注册</button>
@@ -119,6 +125,7 @@
 		<p>© 2017 Anan-X Studio. All Right Reserved. Themes by Moumou</p>
 		<p>桂ICP备15007582-1</p>
 	</div>
+	<!-- 引入jQuery库 -->
 	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<!-- 引入页面控制JS -->
 	<script type="text/javascript" src="js/main.js"></script>

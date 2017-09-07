@@ -85,10 +85,10 @@ if (!$mysql_con){
 		$em_len = strlen($f_email);
 		$fkey_len = strlen($f_key);
 		
-		// 正则判断各个变量是否符合格式, 不符合格式立即die();
+		// 正则判断各个变量是否符合格式, 不符合格式立即die(); 安全守则: 永远不要相信用户的输入..
 		if ($un_len <= 4 || $un_len > 10 || !preg_match("/^[a-zA-Z][a-zA-Z0-9_]*$/", $f_username)){
 			die('用户名格式错误.');
-		} elseif ($pw_len <= 5 || $pw_len > 16 || !preg_match("/^[a-zA-Z][a-zA-Z0-9_]*$/", $f_password)){
+		} elseif ($pw_len <= 5 || $pw_len > 16 || !preg_match("/^[\x21-\x7E]*$/", $f_password)){
 			die('密码格式错误.');
 		} elseif ($em_len <= 6 || $em_len > 30 || !preg_match("/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/", $f_email)){
 			die('邮箱格式错误.');
@@ -129,6 +129,11 @@ if (!$mysql_con){
 							$sql_text = "update " . $web_fkey_tablename . " set `usedate` = '". $f_date ."', username = '" . $f_username . "'" . " where fkey = '" . $f_key . "';";
 							$sql_key_return = mysqli_query($mysql_con, $sql_text); if($sql_key_return == false){ die(); }
 						}
+					} else {
+							$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail";
+							echo "<script language='javascript' type='text/javascript'>window.location.href = '$url';</script>";
+							mysqli_close($mysql_con);
+							die('邀请码不存在.');
 					}
 				}
 			}

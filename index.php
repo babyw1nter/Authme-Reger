@@ -29,6 +29,13 @@ if($ban_mode == '0'){
 $code = mt_rand(99999,1000000); 
 $_SESSION['code'] = $code;
 
+// 页面是否显示邀请码
+if($fkey_enabled){
+	$fkey_class = '';
+} else {
+	$fkey_class = "style='display: none;'";
+}
+
 // 输出注册页面html模版
 include 'template/reg.html';
 
