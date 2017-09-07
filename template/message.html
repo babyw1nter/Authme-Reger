@@ -1,52 +1,84 @@
 <!DOCTYPE html>
-<html>
-	<head>
-      <title>注册账号 - 我的世界</title>
-	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!-- 引入 Bootstrap -->
-      <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	  <!-- 引入 页面CSS -->
-	  <link href="../css/main.css" rel="stylesheet">  
-	  <style>
-			.h-class { text-align: center; }
-				/*
-				.ok { color: #369239; }
-				.fail { color: #da5252; }
-				*/
-			.div-msbox { height: 200px; background: #fff; border: 1px solid #ccc; border-radius: 6px; }
-			.reg-main-plus { width: 400px; text-align: center; }
-			.r-m-h { display: none; }
-	  </style>
-	  <!-- 提示页面V1.1丨创建日期: 2017-06-12丨HTML/CSS/JS: Anan丨完成日期: 2017-06-14 -->
-	</head>
-	<body>
-		<!-- 提示模块 开始 -->
-		<div id="regok" class="reg-main reg-main-plus r-m-h">
-			<div class="div-msbox">
-				<h1 class="h-class ok" style="margin-bottom: 20px; color: #5ba057;">注册成功!</h1>
-				<h5 class="h-class ok">恭喜，您的账号已注册成功！</h5>
-				<h5 class="h-class ok">您现在可以在游戏中登录了。</h5>
-				<button onclick="back()" class="btn btn-default btn-sm" style="padding: 6px 40px; margin-top: 14px;">返回</button>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="zh-cmn-Hans">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="MCBBS是中国最大的同性交友网站，立即注册享受FAの快感！">
+<meta name="keywords" content="Minecraft,沙盒,MC">
+<meta name="author" content="Anan-X Studio">
+<title>我的世界 - 用户注册</title>
+<!-- 设计: sc0utzz | 重构: Moumou | 创建: 2017-06-09 | 修改: 2017-09-05 | 个人主页: https://github.com/sc0utz -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="../css/normalize.css" />
+<!-- 引入页面CSS -->
+<link rel="stylesheet" href="../css/main.css">
+<style>
+	.ion-info { margin-left: 10px; float: left; font-size: 78px; color: #63da5c; }
+	.info-div-son { float: left; padding-top: 8px; }
+	.info-div-son p { padding: 0 24px; }
+	.info-title-p { margin-top: 4px; margin-bottom: 6px; font-size: 36px; color: #63da5c; }
+	.info-bt-p { margin-top: 8px; margin-bottom: 4px; font-size: 15px; color: #999; }
+	.info-bt-p a { text-decoration: none; color: #147bc7; }
+</style>
+<!-- 检测浏览器信息 -->
+<script type="text/javascript" src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js?v.2017-08-17"></script>
+<!-- 兼容IE9 -->
+<!--[if lt IE 9]> 
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]--> 
+</head>
+<body>
+	<!-- 顶部导航 开始 -->
+	<div class="top-nav">
+		<div class="top-nav-center">
+			<a href="#" style="float: left;"><img src="../img/logo.png" class="img-logo" /></a>
+			<ul>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">会员服务</a></li>
+				<li><a href="#">个人中心</a></li>
+				<li><a href="#">玩家论坛</a></li>
+				<li><a href="#">玩法帮助</a></li>
+				<li><a href="#">排行榜</a></li>
+			</ul>
+			<div class="top-nav-user">
+				<img src="../img/noLogin.jpg" />
+				<span>欢迎您，您可以<a href="#">登录</a>或<a href="#">注册</a></span>
 			</div>
 		</div>
-		
-		<div id="regfail" class="reg-main reg-main-plus r-m-h">
-			<div class="div-msbox">
-				<h1 class="h-class fail" style="margin-bottom: 20px; color: #da5252;">注册失败!</h1>
-				<h5 class="h-class fail">很遗憾，您的账号没有注册成功。</h5>
-				<h5 id="msg" class="h-class fail">请检查您的邀请码或昵称是否正确！</h5>
-				<button onclick="back()" class="btn btn-default btn-sm" style="padding: 6px 40px; margin-top: 14px;">返回</button>
+	</div>
+	<!-- 顶部导航 结束 -->
+	<!-- 注册box 开始 -->
+	<div class="reg-box">
+		<h3 class="is-title">新用户注册</h3>
+		<div class="adbox-right"><img src="../img/ad1.jpg" /></div>
+		<div class="row" style="margin-top: 200px; margin-left: auto;">
+			<div class="info-div-father">
+				<i id="icon-id" class="ion-info"></i>
+				<div class="info-div-son">
+					<p id="info-title" class="info-title-p"></p>
+					<p id="info-bt" class="info-bt-p"><span id="info-bt-1"></span><span id="time">8</span>秒后跳转至首页... <a href="javascript:back();">点击跳转</a></p>
+				</div>
 			</div>
 		</div>
-		<!-- 提示模块 结束 -->
-
-      <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-      <!-- 包括所有已编译的插件 -->
-      <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	  <!-- 检测URL后传来的参数 -->
-	  <script>
+	</div>
+	<!-- 注册box 结束 -->
+	<div class="footer">
+		<p>© 2017 Anan-X Studio. All Right Reserved. Themes by Moumou</p>
+		<p>桂ICP备15007582-1</p>
+	</div>
+	<!-- 引入jQuery库 -->
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<!-- 引入页面控制JS -->
+	<script>
 		// 取URL后传来的参数的函数
 	  	function GetUrlPar(name){
 			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -65,23 +97,52 @@
 		if(WebUrl != null && WebUrl.toString().length > 1){
 			UrlPar = GetUrlPar("s"); // 存入参数变量
 			if(UrlPar == "ok"){
-				$("#regok").show();
+				$("#icon-id").css("color", "#63da5c");
+				$("#icon-id").removeClass("ion-close-circled");
+				$("#icon-id").addClass("ion-ios-checkmark");
+				$("#info-title").css("color", "#63da5c");
+				$("#info-title").html("恭喜！您已注册成功！");
+				$("#info-bt-1").html('您现在可以在游戏登录了，');
+				delayURL('../');
 			} else if(UrlPar == "fail"){
-				$("#regfail").show();
+				$("#icon-id").css("color", "#e53935");
+				$("#icon-id").removeClass("ion-ios-checkmark");
+				$("#icon-id").addClass("ion-close-circled");
+				$("#info-title").css("color", "#e53935");
+				$("#info-title").html("抱歉！您的账号注册失败！");
+				$("#info-bt-1").html('您的账号或邀请码有误，');
+				delayURL('../');
 			} else if(UrlPar == "fail_ip"){
-				$("#regfail").show();
-				$("#msg").html('您的IP在短时间不能注册过多账号！');
+				$("#icon-id").css("color", "#e53935");
+				$("#icon-id").removeClass("ion-ios-checkmark");
+				$("#icon-id").addClass("ion-close-circled");
+				$("#info-title").css("color", "#e53935");
+				$("#info-title").html("抱歉！您的账号注册失败！");
+				$("#info-bt-1").html('您的IP在短时间内注册过了，');
+				delayURL('../');
 			} else {
 				window.location.href = "../";
 			}
 		} else {
-			window.location.href = "../"; // 空参则直接跳转默认页
+			//window.location.href = "../"; // 空参则直接跳转默认页
 		}
 		
 		// 返回注册页
 		function back(){
 			window.location.href = "../";
 		}
-	  </script>
-	</body>
+		
+		// 延时跳转函数
+		function delayURL(url) {
+			var delay = document.getElementById("time").innerHTML;
+			if (delay > 1) {
+				delay--;
+				document.getElementById("time").innerHTML = delay;
+			} else {
+				window.location.href = url; // 跳转
+			}
+			setTimeout("delayURL('" + url + "')", 1000);
+		}
+	</script>
+</body>
 </html>
