@@ -127,7 +127,7 @@ if (!$mysql_con){
 							die('邀请码已被使用.');
 						} else { // 修改邀请码使用者字段
 							$sql_text = "update " . $web_fkey_tablename . " set `usedate` = '". $f_date ."', username = '" . $f_username . "'" . " where fkey = '" . $f_key . "';";
-							$sql_key_return = mysqli_query($mysql_con, $sql_text); if($sql_key_return == false){ die(); }
+							$sql_key_return = mysqli_query($mysql_con, $sql_text); if($sql_key_return == false){ if($debug_mode){ die('<b>插入webreg_fkey表失败</b>: ' . mysqli_error($mysql_con)); } else { die(); } }
 						}
 					} else {
 							$url = $Web_Url."/template/".$Web_Url_Msg."?s=fail";
@@ -143,13 +143,13 @@ if (!$mysql_con){
 				$f_pwd_sha = SHA256Salt($f_password, $pw_enc_salt_len * 2);
 			} // TODO else if (){ ...
 			
-			// 插入记录至 web 数据表
+			// 插入记录至 webreg 数据表
 			$sql_text = "INSERT INTO " . $web_tablename . " (`username`, `password`, `email`, `fkey`, `ip`, `time`) VALUES ('".$f_username."', '".$f_pwd_sha."', '".$f_email."', '".$f_key."', '".$f_ip."', '".$f_date."')";
-			$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ die(); }
+			$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ if($debug_mode){ die('<b>插入webreg表失败</b>: ' . mysqli_error($mysql_con)); } else { die(); } }
 			
 			// 插入记录至 authme 数据表
-			$sql_text = "INSERT INTO " . $authme_tablename . " (`".$mySQLColumnId."`, `".$mySQLColumnName."`, `".$mySQLColumnPassword."`, `".$mySQLColumnIp."`, `".$mySQLColumnLastLogin."`, `".$mySQLlastlocX."`, `".$mySQLlastlocY."`, `".$mySQLlastlocZ."`, `".$mySQLlastlocWorld."`, `".$mySQLColumnEmail."`, `".$mySQLColumnLogged."`, `".$mySQLRealName."`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', NULL, '".$f_email."', '0', '".$f_username."')";
-			$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ die(); }
+			$sql_text = "INSERT INTO " . $authme_tablename . " (`".$mySQLColumnId."`, `".$mySQLColumnName."`, `".$mySQLColumnPassword."`, `".$mySQLColumnIp."`, `".$mySQLColumnLastLogin."`, `".$mySQLlastlocX."`, `".$mySQLlastlocY."`, `".$mySQLlastlocZ."`, `".$mySQLlastlocWorld."`, `".$mySQLColumnEmail."`, `".$mySQLColumnLogged."`, `".$mySQLRealName."`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', ".$spawn_world.", '".$f_email."', '0', '".$f_username."')";
+			$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ if($debug_mode){ die('<b>插入authme表失败</b>: ' . mysqli_error($mysql_con)); } else { die(); } }
 			
 			$url = $Web_Url."/template/".$Web_Url_Msg."?s=ok";				
 			
