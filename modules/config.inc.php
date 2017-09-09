@@ -33,9 +33,10 @@ $mySQLlastlocWorld = 'world';
 $mySQLlastlocYaw = 'yaw';
 $mySQLlastlocPitch = 'pitch';
 
-// 定义Authme密码加密算法
-$pw_enc = 'SHA256'; // 现在改成大写了
-$pw_enc_salt_len = 8;
+// 定义Authme设置
+$pw_enc = 'SHA256'; // 加密算法 现在改成大写了
+$pw_enc_salt_len = 8; // salt长度
+$spawn_world = 'world'; // 主城世界
 
 // TODO 定义网页表字段名
 //$sql_
@@ -77,5 +78,8 @@ $contract_url = '#';
 
 // 定义底部版权信息
 // TODO ...
+
+// 定义debug模式
+$debug_mode = false;
 
 ?>
