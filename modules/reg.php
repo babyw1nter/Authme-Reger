@@ -148,7 +148,7 @@ if (!$mysql_con){
 			$sql_web_return = mysqli_query($mysql_con, $sql_text); if($sql_web_return == false){ if($debug_mode){ die('<b>插入webreg表失败</b>: ' . mysqli_error($mysql_con)); } else { die(); } }
 			
 			// 插入记录至 authme 数据表
-			$sql_text = "INSERT INTO " . $authme_tablename . " (`".$mySQLColumnId."`, `".$mySQLColumnName."`, `".$mySQLColumnPassword."`, `".$mySQLColumnIp."`, `".$mySQLColumnLastLogin."`, `".$mySQLlastlocX."`, `".$mySQLlastlocY."`, `".$mySQLlastlocZ."`, `".$mySQLlastlocWorld."`, `".$mySQLColumnEmail."`, `".$mySQLColumnLogged."`, `".$mySQLRealName."`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', ".$spawn_world.", '".$f_email."', '0', '".$f_username."')";
+			$sql_text = "INSERT INTO " . $authme_tablename . " (`".$mySQLColumnId."`, `".$mySQLColumnName."`, `".$mySQLColumnPassword."`, `".$mySQLColumnIp."`, `".$mySQLColumnLastLogin."`, `".$mySQLlastlocX."`, `".$mySQLlastlocY."`, `".$mySQLlastlocZ."`, `".$mySQLlastlocWorld."`, `".$mySQLColumnEmail."`, `".$mySQLColumnLogged."`, `".$mySQLRealName."`) VALUES (NULL, '".$f_username_s."', '".$f_pwd_sha."', '".$f_ip."', '".$f_date_unix."', '0', '0', '0', '".$spawn_world."', '".$f_email."', '0', '".$f_username."')";
 			$sql_atm_return = mysqli_query($mysql_con, $sql_text); if($sql_atm_return == false){ if($debug_mode){ die('<b>插入authme表失败</b>: ' . mysqli_error($mysql_con)); } else { die(); } }
 			
 			$url = $Web_Url."/template/".$Web_Url_Msg."?s=ok";				
