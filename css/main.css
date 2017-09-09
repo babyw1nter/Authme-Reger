@@ -2,6 +2,9 @@
 
 body {
 	background: #f7f7f7;
+}
+
+body, input, button {
 	font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial;
 }
 
