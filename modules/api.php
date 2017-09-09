@@ -8,26 +8,22 @@ $mysql_con = mysqli_connect($ip, $username, $password, $sqlname); // 连接数�
 // $mysql_sql = mysqli_select_db($mysql_con, $sqlname); // 选择数据库
 
 // 取客户端IP地址函数
-function getIP(){
-    static $realip;
-    if (isset($_SERVER)){
-        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
-            $realip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-        } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
-            $realip = $_SERVER["HTTP_CLIENT_IP"];
-        } else {
-            $realip = $_SERVER["REMOTE_ADDR"];
-        }
-    } else {
-        if (getenv("HTTP_X_FORWARDED_FOR")){
-            $realip = getenv("HTTP_X_FORWARDED_FOR");
-        } else if (getenv("HTTP_CLIENT_IP")) {
-            $realip = getenv("HTTP_CLIENT_IP");
-        } else {
-            $realip = getenv("REMOTE_ADDR");
+function getIP() {
+    static $ip = '';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    if(isset($_SERVER['HTTP_CDN_SRC_IP'])) {
+        $ip = $_SERVER['HTTP_CDN_SRC_IP'];
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
+        foreach ($matches[0] AS $xip) {
+            if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
+                $ip = $xip;
+                break;
+            }
         }
     }
-    return $realip;
+    return $ip;
 }
 
 /* 
