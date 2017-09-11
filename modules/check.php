@@ -8,8 +8,8 @@ include 'api.php';
 require './PHPMailer/PHPMailerAutoload.php'; // 引入 PHPMailer
 
 // 禁止浏览器直接打开
-$fromurl = $Web_Url; //跳转往这个地址。
-if( $_SERVER['HTTP_REFERER'] == "" ){
+$fromurl = $setting['web']['Web_Url']; //跳转往这个地址。
+if($_SERVER['HTTP_REFERER'] == ""){
 	header("Location:".$fromurl); exit;
 }
 
