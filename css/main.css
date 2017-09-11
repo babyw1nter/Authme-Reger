@@ -325,7 +325,7 @@ input::-ms-input-placeholder {
 	cursor: not-allowed;
 }
 
-/* 重写解锁样式，使得滑动验证条与input的height一致 */
+/* 重写样式，使得滑动验证条与input的height一致 */
 
 .d_afs {
 	float: right;
@@ -334,6 +334,7 @@ input::-ms-input-placeholder {
 
 .nc_scale, .nc_scale span {
 	height: 35px !important;
+	border-color: #e7e7e7 !important;
 }
 
 .nc_wrapper {
