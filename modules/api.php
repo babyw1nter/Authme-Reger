@@ -1,11 +1,7 @@
 <?php
 
-// 引入头文件
-// include 'config.inc.php';
-
 // 连接数据库 & 选择数据库
-$mysql_con = mysqli_connect($ip, $username, $password, $sqlname); // 连接数据库
-// $mysql_sql = mysqli_select_db($mysql_con, $sqlname); // 选择数据库
+$mysql_con = mysqli_connect($setting['mysql']['ip'], $setting['mysql']['username'], $setting['mysql']['password'], $setting['mysql']['sqlname']); // 连接并选择数据库
 
 // 取客户端IP地址函数
 function getIP() {

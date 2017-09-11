@@ -13,12 +13,12 @@ date_default_timezone_set('PRC');
 
 // 判断是否为禁止访问地区
 $ipAddress = GetIpLookup(getIP());
-if($ban_mode == '0'){
-	if($ipAddress['city'] == $ban_city){
+if($setting['web']['ban_mode'] == '0'){
+	if($ipAddress['city'] == $setting['web']['ban_city']){
 		die();
 	}
-} elseif($ban_mode == '1'){
-	if($ipAddress['province'] == $ban_province){
+} elseif($setting['web']['ban_mode'] == '1'){
+	if($ipAddress['province'] == $setting['web']['ban_province']){
 		die();
 	}
 } else {
@@ -30,7 +30,7 @@ $code = mt_rand(99999,1000000);
 $_SESSION['code'] = $code;
 
 // 页面是否显示邀请码
-if($fkey_enabled){
+if($setting['fkey']['enabled']){
 	$fkey_class = '';
 } else {
 	$fkey_class = "style='display: none;'";
