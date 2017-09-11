@@ -15,7 +15,7 @@
 <meta name="keywords" content="Minecraft,沙盒,MC">
 <meta name="author" content="Anan-X Studio">
 <title>我的世界 - 用户注册</title>
-<!-- 设计: sc0utzz | 重构: Moumou | 创建: 2017-06-09 | 修改: 2017-09-05 | 个人主页: https://github.com/sc0utz -->
+<!-- 设计: sc0utzz | 重构: Moumou | 创建: 2017-06-09 | 修改: 2017-09-11 | 个人主页: https://github.com/sc0utz -->
 <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="css/normalize.css" />
@@ -60,37 +60,37 @@
 				<ul class="is-reg-box clearfix">
 					<li class="li-row clearfix">
 							<label class="is-label" for="username">用户名</label>
-							<input id="id" name="username" type="text" maxlength="10" autocomplete="new-password" />
+							<input id="id" name="username" type="text" maxlength="10" autocomplete="off" />
 							<i class="ion ion-android-person"></i>
 							<div id="i-tt1" class="i-tt"></div>
 					</li>
 					<li class="li-row clearfix">
 							<label class="is-label" for="email">邮箱</label>
-							<input id="em" name="email" type="text" maxlength="30" autocomplete="new-password" />
+							<input id="em" name="email" type="text" maxlength="30" autocomplete="off" />
 							<i class="ion ion-ios-email"></i>
 							<div id="i-tt2" class="i-tt"></div>
 					</li>
 					<li class="li-row clearfix">
 							<label class="is-label" for="emailkey">邮箱验证码</label>
-							<input id="emkey" name="emailkey" type="text" maxlength="6" autocomplete="new-password" />
+							<input id="emkey" name="emailkey" type="text" maxlength="6" autocomplete="off" />
 							<button id="sdem" class="post-form btn-sdem btn-disabled" type="button" onclick="sendem()">获取验证码</button>
 							<div id="i-tt3" class="i-tt" style="left: 181px;"></div>
 					</li>
 					<li class="li-row clearfix">
 							<label class="is-label" for="password">密码</label>
-							<input id="pw" name="password" type="password" maxlength="16" autocomplete="new-password" />
+							<input id="pw" name="password" type="password" maxlength="16" autocomplete="off" />
 							<i class="ion ion-android-lock"></i>
 							<div id="i-tt4" class="i-tt"></div>
 					</li>
 					<li class="li-row clearfix">
 							<label class="is-label" for="acceptpassword">确认密码</label>
-							<input id="apw" name="acceptpassword" type="password" maxlength="16" autocomplete="new-password" />
+							<input id="apw" name="acceptpassword" type="password" maxlength="16" autocomplete="off" />
 							<i class="ion ion-android-lock"></i>
 							<div id="i-tt5" class="i-tt"></div>
 					</li>
 					<li id="fkey-li" class="li-row clearfix" <?php echo $fkey_class;?>>
-							<label class="is-label" for="acceptpassword">邀请码</label>
-							<input id="fkey" name="fkey" type="text" maxlength="11" autocomplete="new-password" />
+							<label class="is-label" for="fkey">邀请码</label>
+							<input id="fkey" name="fkey" type="text" maxlength="11" autocomplete="off" />
 							<i class="ion ion-android-pin"></i>
 							<div id="i-tt5plus" class="i-tt"></div>
 					</li>
@@ -105,7 +105,7 @@
 					<li class="li-row">
 						<p class="protocol clearfix">
 							<input class="check" id="check_box" name="check_box" type="checkbox" checked="checked" onclick="ckboxOnClick()" required />
-							<span>我已阅读并同意</span><a href="<?php echo $contract_url;?>"><em><?php echo $contract_name;?></em></a>
+							<span>我已阅读并同意</span><a href="<?php echo $setting['contract']['url'];?>"><em><?php echo $setting['contract']['name'];?></em></a>
 						</p>
 						<div id="i-tt7" class="i-tt"></div>
 						<button id="rbtn" class="post-form" name="submit" type="submit" onclick="btnclick()">立即注册</button>
