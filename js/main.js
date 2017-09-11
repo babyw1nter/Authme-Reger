@@ -234,10 +234,10 @@ function checkun(){
 	var getUrl = "./modules/check.php?action=checkid&username=" + getUn; 
 	$.get(getUrl,function(str){ 
 		if(str == '1'){
-			$("#i-tt1").html("<span><i class='ion-span ion-android-alert'></i>该用户名已被注册！</span>");
-		} else {
 			$("#i-tt1").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 			namecheck = true;
+		} else if(str == '0') {
+			$("#i-tt1").html("<span><i class='ion-span ion-android-alert'></i>该用户名已被注册！</span>");
 		}
 		$('#i-tt1').show();
 	})
@@ -251,8 +251,6 @@ function checkem(){
 	$.get(getUrl,function(str){ 
 		//console.log(str);
 		if(str == '1'){
-			$("#i-tt2").html("<span><i class='ion-span ion-android-alert'></i>该邮箱已被注册！</span>");
-		} else {
 			$("#i-tt2").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 			if(isCD == false){
 				// 按钮解禁
@@ -260,6 +258,8 @@ function checkem(){
 				$("#sdem").attr("disabled", false);
 			}
 			emcheck = true;
+		} else if(str == '0'){
+			$("#i-tt2").html("<span><i class='ion-span ion-android-alert'></i>该邮箱已被注册！</span>");
 		}
 		$('#i-tt2').show();
 	})
@@ -276,7 +276,7 @@ function checkemkey(){
 		if(str == '1' && email_ == $('#em').val()){
 			$("#i-tt3").html("<span style='color: #63da5c;'><i class='ion-span ion-ios-checkmark'></i></span>");
 			emkeycheck = true;
-		} else {
+		} else if(str == '0'){
 			$("#i-tt3").html("<span><i class='ion-span ion-android-alert'></i>验证码错误！</span>");
 		}
 		$('#i-tt3').show();
