@@ -26,9 +26,10 @@ if($setting['web']['ban_mode'] == '0'){
 }
 
 // session初始化 & 设置
-$code = mt_rand(99999,1000000); 
-$_SESSION['code'] = $code;
-
+if(!isset($_SESSION['code'])){
+	$_SESSION['code'] = mt_rand(99999,1000000); 
+}
+	
 // 页面是否显示邀请码
 if($setting['fkey']['enabled']){
 	$fkey_class = '';

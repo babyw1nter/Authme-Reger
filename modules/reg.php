@@ -35,7 +35,7 @@ if (!$mysql_con){
 		$f_['ip'] = getIP();
 		$f_['date'] = date("Y-m-d H:i:s");
 		$f_['date_unix'] = getUnix(); // 取Unix13位时间戳
-		$f_['fastreg_time'] = date_count(date("Y-m-d H:i:s"),'-'.$reg_time,'hour'); // 计算防多次注册范围时间
+		$f_['fastreg_time'] = date_count(date("Y-m-d H:i:s"),'-'.$setting['web']['reg_time'],'hour'); // 计算防多次注册范围时间
 		$f_['sscode'] = $_POST['session_code']; // 取表单隐藏域Session
 		// 取表单云盾风控SSID & SIG等参数
 		$f_['cssid'] = $_POST['csessionid'];
@@ -162,6 +162,7 @@ if (!$mysql_con){
 		die('注册成功.');
 
 	} else {
+		echo $setting['web']['Web_Url_Script'].$url."';</script>";
 		mysqli_close($mysql_con);
 		die('非法提交.');
 	}
