@@ -9,7 +9,7 @@ $setting['web']['Web_Url_Script'] = "<script language='javascript' type='text/ja
 
 // ----------------------------  注册设置项S  ----------------------------- //
 // 条件设置
-// TODO $setting['web']['ban_key'] = '*admin*,*fuck*,*op*'; 		// 注册保留关键字
+// TODO $setting['web']['ban_key'] = '*admin*,*fuck*,*op*,*pussy*'; 		// 注册保留关键字
 $setting['web']['reg_time'] = 8; 					// 同IP多少小时内只能注册1个ID
 // 禁止访问设置
 $setting['web']['ban_mode'] = '0';					// 0 为 ban 市区 , 1 为 ban 省区
