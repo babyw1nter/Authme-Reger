@@ -143,9 +143,15 @@ if (!$mysql_con){
 			$passwordHash = new passwordHash;
 			$passwordHash->password = $f_['password'];
 			$passwordHash->saltlen = $setting['authme']['doubleMD5SaltLength'];
-			if($setting['authme']['passwordHash'] == 'SHA256'){
+			if ($setting['authme']['passwordHash'] == 'MD5'){
+				$f_pwd_sha = $passwordHash->MD5();
+			} else if ($setting['authme']['passwordHash'] == 'SALTED2MD5'){
+				$f_pwd_sha = $passwordHash->SALTED2MD5();
+			} else if ($setting['authme']['passwordHash'] == 'SHA256'){
 				$f_pwd_sha = $passwordHash->SHA256();
-			} // TODO else if (){ ...
+			} else if ($setting['authme']['passwordHash'] == 'SHA512'){
+				$f_pwd_sha = $passwordHash->SHA512();
+			}
 			
 			// 插入记录至 webreg 数据表
 			$sql_text = "INSERT INTO ".$setting['mysql']['webreg_db']." (`username`, `password`, `email`, `fkey`, `ip`, `time`) VALUES ('".$f_['username']."', '".$f_pwd_sha."', '".$f_['email']."', '".$f_['key']."', '".$f_['ip']."', '".$f_['date']."')";
