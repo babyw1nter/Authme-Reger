@@ -1,7 +1,9 @@
 <?php
 
+
 // 连接数据库 & 选择数据库
 $mysql_con = mysqli_connect($setting['mysql']['ip'], $setting['mysql']['username'], $setting['mysql']['password'], $setting['mysql']['sqlname']); // 连接并选择数据库
+
 
 // 取客户端IP地址函数
 function getIP() {
@@ -22,30 +24,6 @@ function getIP() {
     return $ip;
 }
 
-/* 
-// 判断IP地址是否禁止访问
-function CheckIP($_ip){
-	$ipAddress = GetIpLookup($_ip);
-	if(!isset($ipAddress)){
-		return true;
-	}
-	if($ban_mode == '0'){
-		if($ipAddress['city'] == $ban_city){
-			return true;
-		} else {
-			return false;
-		}
-	} elseif($ban_mode == '1'){
-		if($ipAddress['province'] == $ban_province){
-			return true;
-		} else {
-			return false;
-		}
-	} else {
-		return true;
-	}
-}
-*/
 
 // IP地址取地名函数-新浪接口
 function GetIpLookup($ip = ''){  
@@ -82,13 +60,38 @@ function object_array($array) {
 }
 
 
-// SHA256 Salt 算法
-function SHA256Salt($Str = '', $Salt_len = 0){
-	if(!$Str || $Salt_len == 0) { return 'Error'; }
-	$RStr =  getRStr($Salt_len);  
-	$pw_hash = hash('sha256', $Str, false);
-	$pw_salt_hash = hash('sha256', $pw_hash.$RStr, false);
-	return '$SHA$'.$RStr.'$'.$pw_salt_hash;
+// 加密算法类
+class passwordHash{
+	public $password;
+	public $saltlen;
+	// MD5
+	public function MD5(){
+		if(!$this->password) { return 'Error'; }
+		return md5($this->password);
+	}
+	// MD5VB - TODO
+	public function MD5VB(){
+		if(!$this->password) { return 'Error'; }
+		$Salt =  getRStr($this->saltlen * 2);
+		return '$MD5vb$'.$Salt.'$'.md5(md5($this->password).$Salt);
+	}
+	// SALTED2MD5
+	public function SALTED2MD5(){
+		if(!$this->password || $this->saltlen == 0) { return 'Error'; }
+		$Salt =  getRStr($this->saltlen * 2);
+		return '$SALTED2MD5$'.$Salt.'$'.md5(md5($this->password).$Salt);
+	}
+	// SHA256
+	public function SHA256(){
+		if(!$this->password || $this->saltlen == 0) { return 'Error'; }
+		$Salt =  getRStr($this->saltlen * 2);
+		return '$SHA$'.$Salt.'$'.hash('sha256', hash('sha256', $this->password, false).$Salt, false);
+	}
+	// SHA512
+	public function SHA512(){
+		if(!$this->password) { return 'Error'; }
+		return hash('sha512', $this->password, false);
+	}
 }
 
 
@@ -116,9 +119,11 @@ function getUnix(){
 	return (float)sprintf('%.0f',(floatval($t1)+floatval($t2))*1000); 
 } 
 
+
 // 日期加减
 function date_count($date_,$count_,$unit_){
 	return date("Y-m-d H:i:s",strtotime($date_." ".$count_." ".$unit_));
 }
+
 
 ?>

@@ -140,8 +140,11 @@ if (!$mysql_con){
 			}
 			
 			// 密码加密,判断算法
-			if($setting['authme']['pw_enc'] == 'SHA256'){
-				$f_pwd_sha = SHA256Salt($f_['password'], $setting['authme']['pw_enc_salt_len'] * 2);
+			$passwordHash = new passwordHash;
+			$passwordHash->password = $f_['password'];
+			$passwordHash->saltlen = $setting['authme']['doubleMD5SaltLength'];
+			if($setting['authme']['passwordHash'] == 'SHA256'){
+				$f_pwd_sha = $passwordHash->SHA256();
 			} // TODO else if (){ ...
 			
 			// 插入记录至 webreg 数据表
