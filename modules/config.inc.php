@@ -42,13 +42,14 @@ $setting['authme']['mySQLlastlocWorld'] = 'world';
 $setting['authme']['mySQLlastlocYaw'] = 'yaw';
 $setting['authme']['mySQLlastlocPitch'] = 'pitch';
 // 插件设置
-$setting['authme']['pw_enc'] = 'SHA256'; 				// 现在改成大写了
-$setting['authme']['pw_enc_salt_len'] = 8;				// Salt长度
+$setting['authme']['passwordHash'] = 'SHA256'; 				// 加密算法
+$setting['authme']['doubleMD5SaltLength'] = 8;				// Salt长度
 $setting['authme']['spawn_world'] = 'world'; 				// 默认出生世界
 
 // ----------------------------  SMTP邮件设置项  ----------------------------- //
 $setting['smtp']['server'] = 'smtp.exmail.qq.com'; 			// SMTP地址
 $setting['smtp']['port'] = 25; 						// SMTP端口
+$setting['smtp']['Secure'] = '';					// 如果port为465,则填写ssl,留空则port必须为25
 $setting['smtp']['from_email'] = 'admin@qq.cn'; 			// 发信人地址
 $setting['smtp']['from_username'] = 'Admin'; 				// 发件人名称
 $setting['smtp']['username'] = 'admin@qq.cn'; 				// SMTP用户名
